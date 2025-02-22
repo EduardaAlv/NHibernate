@@ -24,4 +24,54 @@ class Program
             }
         }
     }
+
+    public void Adicionar(Pessoa pessoa)
+    {
+        using (var session = NHibernateHelper.AbrirSessao())
+        using (var transaction = session.BeginTransaction())
+        {
+            session.Save(pessoa);
+            transaction.Commit();
+        }
+    }
+
+    public Pessoa BuscarPorId(int id)
+    {
+        using (var session = NHibernateHelper.AbrirSessao())
+        {
+            return session.Get<Pessoa>(id);
+        }
+    }
+
+    public IList<Pessoa> ListarTodos()
+    {
+        using (var session = NHibernateHelper.AbrirSessao())
+        {
+            return session.Query<Pessoa>().ToList().Where(n => n.Nome == "Eduarda Portes").ToList();
+        }
+    }
+
+    public void Atualizar(Pessoa pessoa)
+    {
+        using (var session = NHibernateHelper.AbrirSessao())
+        using (var transaction = session.BeginTransaction())
+        {
+            session.Update(pessoa);
+            transaction.Commit();
+        }
+    }
+
+    public void Deletar(int id)
+    {
+        using (var session = NHibernateHelper.AbrirSessao())
+        using (var transaction = session.BeginTransaction())
+        {
+            var pessoa = session.Get<Pessoa>(id);
+            if (pessoa != null)
+            {
+                session.Delete(pessoa);
+                transaction.Commit();
+            }
+        }
+    }
 }
