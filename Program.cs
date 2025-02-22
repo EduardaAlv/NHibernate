@@ -11,7 +11,7 @@ class Program
         {
             using (var transaction = session.BeginTransaction())
             {
-                var pessoa = new Pessoa { Nome = "João Silva", Idade = 30 };
+                var pessoa = new Pessoa { Nome = "Eduarda Portes", Idade = 23 };
                 session.Save(pessoa);
                 transaction.Commit();
             }
